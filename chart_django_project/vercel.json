@@ -1,15 +1,15 @@
 {
   "builds": [{
-      "src": "chart_django_project/wsgi.py",
+      "src": "chart_django_project/chart_django_project/wsgi.py",
       "use": "@vercel/python",
       "config": { "maxLambdaSize": "15mb", "runtime": "python3.9" }
   }],
   "routes": [
       {
           "src": "/(.*)",
-          "dest": "chart_django_project/chart_django_project/wsgi.py"
+          "dest": "chart_django_project/chart_django_project/wsgi.py",
       }
         
-  ],
-  "rewrites": [{ "source": "/(.*)", "destination": "/" }]
+  ]
+  
 }
