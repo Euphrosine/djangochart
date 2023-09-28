@@ -15,10 +15,13 @@
       }
     ],
     "routes": [
-
+      {
+        "src": "/static/(.*)",
+        "dest": "/index.html"
+      },
       {
         "src": "/(.*)",
-        "dest": "/"
+        "dest": "chart_django_project/wsgi.py"
       }
     ]
   }
