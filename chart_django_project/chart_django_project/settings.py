@@ -25,7 +25,7 @@ SECRET_KEY = '0-9!4^&mk)@5%a(m!#*-39sb#=*nzlqius!0$+rf+2!c(aa4+x'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['vercel.app', '.now.sh' , '127.0.0.1' , 'localhost']
+ALLOWED_HOSTS = ['.vercel.app','127.0.0.1']
 # Allow all domains; you can restrict this to specific domains if needed.
 #CORS_ALLOWED_ORIGINS = ['*']
 

@@ -8,6 +8,7 @@
       {
           "src": "/(.*)",
           "dest": "chart_django_project/wsgi.py"
-      }
+      },
+      { "rewrites": [{ "source": "/(.*)", "destination": "/" }] }
   ]
 }
