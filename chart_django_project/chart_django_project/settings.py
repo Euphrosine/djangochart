@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'chartapp.apps.ChartappConfig',
     'rest_framework',
     'corsheaders',
+    'sensor_app',
 ]
 
 MIDDLEWARE = [

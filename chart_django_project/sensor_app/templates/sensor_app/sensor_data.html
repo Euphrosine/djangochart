@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sensor Data</title>
+</head>
+<body>
+    <table border="1">
+        <tr>
+            <th>Date and Time</th>
+            <th>Activity</th>
+        </tr>
+        {% for data in sensor_data %}
+            <tr>
+                <td>{{ data.datetime }}</td>
+                <td>{{ data.activity }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
