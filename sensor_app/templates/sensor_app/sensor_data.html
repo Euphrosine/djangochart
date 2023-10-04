@@ -1,22 +1,82 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Sensor Data</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Security System</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f1f1f1;
+            margin: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+            color: #fffcfc;
+            background-color: rgb(8, 17, 100);
+            padding: 10px;
+            border-radius: 5px;
+        }
+        h2 {
+            font-size: 24px;
+            color: rgb(8, 17, 100);
+            background-color: rgb(214, 215, 223);
+            padding: 8px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #cccccc;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f2f2f2;
+        }
+    </style>
 </head>
 <body>
-    <table border="1">
-        <tr>
-            <th>Date and Time</th>
-            <th>Activity</th>
-        </tr>
-        {% for data in sensor_data %}
-            <tr>
-                <td>{{ data.datetime }}</td>
-                <td>{{ data.activity }}</td>
-                <td>{{ data.status }}</td>
-            </tr>
-        {% endfor %}
-    </table>
+    <div class="container">
+        <h1>CAR SECURITY SYSTEM</h1>
+        <h2 style="font-size: 18px;">THEFT ALERT</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Date & Time</th>
+                    <th>Activity</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for data in sensor_data %}
+                    <tr>
+                        <td>{{ data.datetime }}</td>
+                        <td style="color: {% if data.activity == 'Unauthorized person trying to enter the car' %}#ff5733{% else %}#33cc33{% endif %};">{{ data.activity }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>
-
