@@ -16,7 +16,7 @@ class SensorDataAPI(APIView):
 
     def post(self, request):
         status_code = request.data.get('status', 0)
-        
+
         if status_code == 1:
             activity = "Unauthorized person trying to enter the car"
         elif status_code == 11:
@@ -24,7 +24,7 @@ class SensorDataAPI(APIView):
         else:
             activity = "No activity"
             
-        SensorData.objects.create(datetime=datetime.now(), activity=activity)
+        SensorData.objects.create(datetime=datetime.now(), activity=activity,status=status_code)
         return Response({'message': 'Data received successfully'}, status=status.HTTP_201_CREATED)
 
 
