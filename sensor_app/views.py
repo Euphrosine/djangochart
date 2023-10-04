@@ -9,6 +9,12 @@ from .models import SensorData
 
 class SensorDataAPI(APIView):
 
+
+    def get(self, request):
+        data = SensorData.objects.all()
+        response_data = [{'datetime': entry.datetime, 'activity': entry.activity, 'status': entry.status} for entry in data]
+        return Response(response_data)
+
     def post(self, request):
         status_code = request.data.get('status', 0)
 
@@ -18,9 +24,10 @@ class SensorDataAPI(APIView):
             activity = "Unknown person trying to enter in the car"
         else:
             activity = "No activity"
-            
+
         SensorData.objects.create(datetime=datetime.now(), activity=activity,status=status_code)
         return Response({'message': 'Data received successfully'}, status=status.HTTP_201_CREATED)
+
 
 
 def sensor_data_view(request):
