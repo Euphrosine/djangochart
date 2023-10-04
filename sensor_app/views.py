@@ -5,14 +5,9 @@ from .models import SensorData
 from datetime import datetime
 from django.shortcuts import render
 from .models import SensorData
-from .serializers import SensorDataSerializer
 
 
 class SensorDataAPI(APIView):
-    def get(self, request):
-        sensor_data = SensorData.objects.all()
-        serializer = SensorDataSerializer(sensor_data, many=True)
-        return Response(serializer.data)
 
     def post(self, request):
         status_code = request.data.get('status', 0)
