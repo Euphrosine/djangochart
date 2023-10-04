@@ -9,10 +9,10 @@ from .serializers import SensorDataSerializer
 
 
 class SensorDataAPI(APIView):
-    def get(self, request, status):
-        sensor_data = SensorData.objects.filter(status=status)
-        serializer = SensorDataSerializer(sensor_data, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+    # def get(self, request, status):
+    #     sensor_data = SensorData.objects.filter(status=status)
+    #     serializer = SensorDataSerializer(sensor_data, many=True)
+    #     return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request):
         status_code = request.data.get('status', 0)
