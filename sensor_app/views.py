@@ -5,10 +5,16 @@ from .models import SensorData
 from datetime import datetime
 from django.shortcuts import render
 from .models import SensorData
+from .serializers import SensorDataSerializer
+
 
 class SensorDataAPI(APIView):
+    def get(self, request, status):
+        sensor_data = SensorData.objects.filter(status=status)
+        serializer = SensorDataSerializer(sensor_data, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
     def post(self, request):
-        # Assuming you receive 'status' in the request data
         status_code = request.data.get('status', 0)
         
         if status_code == 1:
@@ -19,8 +25,7 @@ class SensorDataAPI(APIView):
             activity = "No activity"
             
         SensorData.objects.create(datetime=datetime.now(), activity=activity)
-        return Response({'message': 'Data recieved successfully'}, status=status.HTTP_201_CREATED)
-
+        return Response({'message': 'Data received successfully'}, status=status.HTTP_201_CREATED)
 
 
 def sensor_data_view(request):
