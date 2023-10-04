@@ -27,7 +27,7 @@ class SensorDataAPI(APIView):
             else:
                 activity = "No activity"
 
-            SensorData.objects.create(datetime=datetime.now(), activity=activity, status=status_code)
+            SensorData.objects.create(datetime=datetime.now(), activity=activity)
             return Response({'message': 'Data received successfully'}, status=status.HTTP_201_CREATED)
         else:
             return Response({'error': 'Invalid status code'}, status=status.HTTP_400_BAD_REQUEST)
