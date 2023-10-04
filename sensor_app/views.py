@@ -8,29 +8,21 @@ from .models import SensorData
 
 
 class SensorDataAPI(APIView):
-
-
-    def get(self, request):
-        data = SensorData.objects.all()
-        response_data = [{'datetime': entry.datetime, 'activity': entry.activity, 'status': entry.status} for entry in data]
-        return Response(response_data)
-    pass
-
-    def post(self, request, status_code=None):
-        if status_code is not None:
-            status_code = int(status_code)
-
-            if status_code == 1:
-                activity = "Unauthorized person trying to enter the car"
-            elif status_code == 11:
-                activity = "Unknown person trying to enter in the car"
-            else:
-                activity = "No activity"
-
-            SensorData.objects.create(datetime=datetime.now(), activity=activity)
-            return Response({'message': 'Data received successfully'}, status=status.HTTP_201_CREATED)
+    
+    def post(self, request):
+        # Assuming you receive 'status' in the request data
+        status_code = request.data.get('status', 0)
+        
+        if status_code == 1:
+            activity = "Unauthorized person trying to enter the car"
+        elif status_code == 11:
+            activity = "Unknown person trying to enter in the car"
         else:
-            return Response({'error': 'Invalid status code'}, status=status.HTTP_400_BAD_REQUEST)
+            activity = "No activity"
+            
+        SensorData.objects.create(datetime=datetime.now(), activity=activity)
+        return Response({'message': 'Data recieved successfully'}, status=status.HTTP_201_CREATED)
+
 
 
 def sensor_data_view(request):
