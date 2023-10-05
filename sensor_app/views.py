@@ -1,30 +1,41 @@
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
+from django.http import JsonResponse
 from .models import SensorData
-from datetime import datetime
+from django.utils import timezone
 from django.shortcuts import render
-from .models import SensorData
-
-
-class SensorDataAPI(APIView):
-    
-    def post(self, request):
-        # Assuming you receive 'status' in the request data
-        status_code = request.data.get('status', 0)
-        
-        if status_code == 1:
-            activity = "Unauthorized person trying to enter the car"
-        elif status_code == 11:
-            activity = "Unknown person trying to enter in the car"
-        else:
-            activity = "No activity"
-            
-        SensorData.objects.create(datetime=datetime.now(), activity=activity)
-        return Response({'message': 'Data recieved successfully'}, status=status.HTTP_201_CREATED)
-
 
 
 def sensor_data_view(request):
+    # Get the value of the 'status' parameter from the URL
+    status = request.GET.get('status', None)
+
+    # Initialize param2 (activity) with an empty string
+    activity = ""
+
+    if status == "1":
+        activity = "Unauthorized person trying to enter the car"
+    elif status == "11":
+        activity = "Unknown person trying to enter the car"
+    
+    # Create a dictionary to store the data you want to save
+    data_to_save = {
+        'datetime': timezone.now(),
+        'activity': activity,
+        'status': status
+    }
+
+    # Create a new entry in the database using the data
+    SensorData.objects.create(**data_to_save)
+
+    # Retrieve all entries from the database
     sensor_data = SensorData.objects.all()
-    return render(request, 'sensor_app/sensor_data.html', {'sensor_data': sensor_data})
+
+    # Convert the data to JSON format
+    response_data = [{'datetime': entry.datetime, 'activity': entry.activity, 'status': entry.status} for entry in sensor_data]
+
+    return JsonResponse(response_data, safe=False)
+
+
+
+def sensor_html_view(request):
+    sensor_data = SensorData.objects.all()
+    return render(request, 'sensor_app/index.html', {'sensor_data': sensor_data})

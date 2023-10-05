@@ -1,8 +1,8 @@
 from django.urls import path
-from .views import SensorDataAPI, sensor_data_view
+from .views import sensor_data_view,sensor_html_view
 
 urlpatterns = [
-    path('api/sensor_data/', SensorDataAPI.as_view(), name='sensor_data_api'),
-    path('api/sensor_data/<int:status_code>/', SensorDataAPI.as_view(), name='sensor_data_api_status'),
+    # ... your other URL patterns ...
+    path('sensor_view/', sensor_html_view, name='sensor_view'),
     path('sensor_data/', sensor_data_view, name='sensor_data_view'),
 ]
