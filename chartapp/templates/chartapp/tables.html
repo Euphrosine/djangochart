@@ -1,0 +1,18 @@
+{% load static %}
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Timestamp</th>
+      <th scope="col">Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for entry in data %}
+      <tr>
+        <td>{{ entry.timestamp|date:"H:i:s" }}</td>
+        <td>{{ entry.value }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>

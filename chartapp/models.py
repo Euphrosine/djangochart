@@ -1,11 +1,9 @@
 from django.db import models
 
-class WeatherData(models.Model):
-    timestamp = models.DateTimeField()
-    temperature = models.FloatField(null=True)
-    humidity = models.FloatField(null=True)
-    rain = models.FloatField(null=True)
-    ldr = models.FloatField(null=True)
+class Product(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    category = models.CharField(max_length=100, null=False, blank=False)
+    num_of_products = models.IntegerField()
 
     def __str__(self):
-        return f"{self.timestamp} - {self.temperature} - {self.humidity} - {self.rain} - {self.ldr}"
+        return f'{self.category} - {self.num_of_products}'

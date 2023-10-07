@@ -2,6 +2,7 @@ from django.http import JsonResponse
 from .models import WeatherData
 from django.utils import timezone
 
+# https://sensor-and-chart.onrender.com/chart_data/?temperature=value&humidity=value&rain=value&ldr=value
 def chart_data_view(request):
     temperature = request.GET.get('temperature', None)
     humidity = request.GET.get('humidity', None)
