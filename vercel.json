@@ -1,15 +1,5 @@
 {
-    "builds": [
-      {
-        "src": "chart_django_project",
-        "use": "@vercel/python@3.10"
-      }
-    ],
-    "routes": [
-      {
-        "src": "/(.*)",
-        "dest": "chart_django_project:app"
-      }
-    ]
-  }
+  "rewrites": [{ "source": "/(.*)", "destination": "/dashboard.html" }]
+}
+
   
