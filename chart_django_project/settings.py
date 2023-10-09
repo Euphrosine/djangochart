@@ -24,9 +24,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '0-9!4^&mk)@5%a(m!#*-39sb#=*nzlqius!0$+rf+2!c(aa4+x'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0']
+ALLOWED_HOSTS = ['*']
 # Allow all domains; you can restrict this to specific domains if needed.
 #CORS_ALLOWED_ORIGINS = ['*']
 
