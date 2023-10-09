@@ -59,3 +59,16 @@ def weather_data_view(request):
         'ldr_labels': ldr_labels,
         'ldr_values': ldr_values,
     })
+def tables_view(request):
+    # Get the data for each field
+    temperature_data = WeatherData.objects.all()
+    humidity_data = WeatherData.objects.all()
+    rain_data = WeatherData.objects.all()
+    ldr_data = WeatherData.objects.all()
+
+    return render(request, 'chartapp/tables.html', {
+        'temperature_data': temperature_data,
+        'humidity_data': humidity_data,
+        'rain_data': rain_data,
+        'ldr_data': ldr_data,
+    })

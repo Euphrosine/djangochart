@@ -1,18 +1,90 @@
-{% load static %}
+{% extends 'partials/base.html' %}
 
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Timestamp</th>
-      <th scope="col">Value</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for entry in data %}
-      <tr>
-        <td>{{ entry.timestamp|date:"H:i:s" }}</td>
-        <td>{{ entry.value }}</td>
-      </tr>
-    {% endfor %}
-  </tbody>
-</table>
+{% block content %}
+
+
+<div class="row mt-5">
+    <div class="col-md-6">
+        <h2>Temperature Table</h2>
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Timestamp</th>
+                    <th scope="col">Temperature</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entry in temperature_data %}
+                <tr>
+                    <td>{{ entry.timestamp|date:"H:i:s" }}</td>
+                    <td>{{ entry.temperature }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col-md-6">
+        <h2>Humidity Table</h2>
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Timestamp</th>
+                    <th scope="col">Humidity</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entry in humidity_data %}
+                <tr>
+                    <td>{{ entry.timestamp|date:"H:i:s" }}</td>
+                    <td>{{ entry.humidity }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row mt-5">
+    <div class="col-md-6">
+        <h2>Rain Table</h2>
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Timestamp</th>
+                    <th scope="col">Rain</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entry in rain_data %}
+                <tr>
+                    <td>{{ entry.timestamp|date:"H:i:s" }}</td>
+                    <td>{{ entry.rain }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col-md-6">
+        <h2>LDR Table</h2>
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Timestamp</th>
+                    <th scope="col">LDR</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entry in ldr_data %}
+                <tr>
+                    <td>{{ entry.timestamp|date:"H:i:s" }}</td>
+                    <td>{{ entry.ldr }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

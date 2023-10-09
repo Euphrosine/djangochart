@@ -2,6 +2,10 @@
 
 {% block content %}
 
+<div style="text-align: right; margin-bottom: 10px;">
+    <a href="{% url 'tables_page' %}" class="btn btn-primary" style="background-color: darkblue;">Tables</a>
+</div>
+
 <div class="row mt-5">
     <div class="col-md-6">
         <canvas id="temperatureChart" width="400" height="250"></canvas>
@@ -114,16 +118,5 @@
     </div>
 </div>
 
-<h2>Temperature Table</h2>
-{% include 'chartapp/tables.html' with data=temperature_data %}
-
-<h2>Humidity Table</h2>
-{% include 'chartapp/tables.html' with data=humidity_data %}
-
-<h2>Rain Table</h2>
-{% include 'chartapp/tables.html' with data=rain_data %}
-
-<h2>LDR Table</h2>
-{% include 'chartapp/tables.html' with data=ldr_data %}
 
 {% endblock %}
