@@ -114,3 +114,8 @@ def generate_pdf_report(request):
 
     return response
 
+def generate_chart_data_report_view(request):
+    sensor_data = WeatherData.objects.all()
+    pdf_response = generate_pdf_report(sensor_data)
+    return pdf_response
+

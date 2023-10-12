@@ -61,6 +61,10 @@
     <div class="container">
         <h1>CAR SECURITY SYSTEM</h1>
         <h2 style="font-size: 18px;">THEFT ALERT</h2>
+        <form action="{% url 'generate_sensor_data_report' %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Generate PDF Report</button>
+        </form>
         <table>
             <thead>
                 <tr>

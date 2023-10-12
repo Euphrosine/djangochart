@@ -2,7 +2,10 @@
 
 {% block content %}
 
-
+<form action="{% url 'generate_pdf_report' %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Generate PDF Report</button>
+</form>
 <div class="row mt-5">
     <div class="col-md-6">
         <h2>Temperature Table</h2>
