@@ -2,6 +2,8 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from .models import WeatherData
 from django.utils import timezone
+from django.http import HttpResponse
+from reportlab.pdfgen import canvas
 
 # https://sensor-and-chart.onrender.com/chart_data/?temperature=value&humidity=value&rain=value&ldr=value
 def chart_data_view(request):
@@ -72,3 +74,43 @@ def tables_view(request):
         'rain_data': rain_data,
         'ldr_data': ldr_data,
     })
+
+
+
+def generate_pdf_report(request):
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="report.pdf"'
+
+    # Create a PDF document
+    p = canvas.Canvas(response)
+
+    # Get the data
+    temperature_data = WeatherData.objects.all()
+    humidity_data = WeatherData.objects.all()
+    rain_data = WeatherData.objects.all()
+    ldr_data = WeatherData.objects.all()
+
+    # Add the data to the PDF
+    p.setFont("Helvetica", 12)
+    p.drawString(50, 800, "Temperature Data:")
+    for i, data in enumerate(temperature_data):
+        p.drawString(70, 780 - i*20, f"Record {i+1}: {data.timestamp}, {data.temperature}") 
+
+    p.drawString(50, 600, "Humidity Data:")
+    for i, data in enumerate(humidity_data):
+        p.drawString(70, 580 - i*20, f"Record {i+1}: {data.timestamp}, {data.humidity}")
+
+    p.drawString(50, 400, "Rain Data:")
+    for i, data in enumerate(rain_data):
+        p.drawString(70, 380 - i*20, f"Record {i+1}: {data.timestamp}, {data.rain}")
+
+    p.drawString(50, 200, "LDR Data:")
+    for i, data in enumerate(ldr_data):
+        p.drawString(70, 180 - i*20, f"Record {i+1}: {data.timestamp}, {data.ldr}")
+
+    # Save the PDF
+    p.showPage()
+    p.save()
+
+    return response
+
