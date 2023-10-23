@@ -1,11 +1,27 @@
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from .models import WeatherData
 from django.utils import timezone
 from django.http import HttpResponse
 from reportlab.pdfgen import canvas
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from .forms import UserRegisterForm
 
+def register(request):
+    if request.method == "POST":
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            messages.success(request, f'Hi {username}, your account was created successfully')
+            return redirect('home')
+    else:
+        form = UserRegisterForm()
+
+    return render(request, 'chartapp/register.html', {'form': form})
 # https://sensor-and-chart.onrender.com/chart_data/?temperature=value&humidity=value&rain=value&ldr=value
+
 def chart_data_view(request):
     temperature = request.GET.get('temperature', None)
     humidity = request.GET.get('humidity', None)
@@ -30,7 +46,7 @@ def chart_data_view(request):
     return JsonResponse({"message": "Data saved successfully"})
 
 
-
+@login_required
 def weather_data_view(request):
     # Get the data for each field
     temperature_data = WeatherData.objects.values_list('timestamp', 'temperature')

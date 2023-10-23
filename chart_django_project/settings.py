@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'sensor_app',
+    'crispy_forms',
+    'crispy_bootstrap4',
 ]
 
 MIDDLEWARE = [
@@ -140,3 +142,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 #         default='postgresql://postgres:RKEJ8ttDqARmAn35DO3Z@containers-us-west-173.railway.app:5769/railway'
 #     )
 # }
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+LOGIN_REDIRECT_URL = 'index'
+
+LOGIN_URL = 'login'
