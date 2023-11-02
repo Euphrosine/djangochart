@@ -92,18 +92,9 @@ def tables_view(request):
     })
 
 def overall_view(request):
-    # Get the data for each field
-    temperature_data = WeatherData.objects.all()
-    humidity_data = WeatherData.objects.all()
-    rain_data = WeatherData.objects.all()
-    ldr_data = WeatherData.objects.all()
+    weather_data = WeatherData.objects.all()
+    return render(request, 'chartapp/overall.html', {'weather_data': weather_data})
 
-    return render(request, 'chartapp/overall.html', {
-        'temperature_data': temperature_data,
-        'humidity_data': humidity_data,
-        'rain_data': rain_data,
-        'ldr_data': ldr_data,
-    })
 
 
 

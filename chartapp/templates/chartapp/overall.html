@@ -17,22 +17,22 @@
             {% for entry in weather_data %}
                 <tr>
                     <td>{{ entry.timestamp }}</td>
-                    <td>{{ entry.temperature_data }}</td>
-                    <td>{{ entry.humidity_data }}</td>
-                    <td>{{ entry.rain_data }}</td>
-                    <td>{{ entry.ldr_data }}</td>
+                    <td>{{ entry.temperature }}</td>
+                    <td>{{ entry.humidity }}</td>
+                    <td>{{ entry.rain }}</td>
+                    <td>{{ entry.ldr }}</td>
                 </tr>
             {% endfor %}
         </tbody>
     </table><br><br>
-    <h4 id="health_chart">3-Ph_IM Chart</h4>
-    <canvas id="healthChart" width="600" height="300"></canvas>
+    <h4 id="weather_chart">Overall Chart</h4>
+    <canvas id="weatherChart" width="600" height="300"></canvas>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            var ctx = document.getElementById('healthChart').getContext('2d');
+            var ctx = document.getElementById('weatherChart').getContext('2d');
     
             var data = {
-                labels: [{% for entry in health_data %}'{{ entry.timestamp }}',{% endfor %}],
+                labels: [{% for entry in weather_data %}'{{ entry.timestamp }}',{% endfor %}],
                 datasets: [
                     {
                         label: 'Temperature',
@@ -42,22 +42,22 @@
                         fill: false
                     },
                     {
-                        label: 'Current',
-                        data: [{% for entry in health_data %}{{ entry.current }},{% endfor %}],
+                        label: 'Humidity',
+                        data: [{% for entry in weather_data %}{{ entry.humidity }},{% endfor %}],
                         borderColor: 'rgb(230,54,115)',
                         borderWidth: 1,
                         fill: false
                     },
                     {
-                        label: 'Vibration',
-                        data: [{% for entry in health_data %}{{ entry.vibration }},{% endfor %}],
+                        label: 'Rain',
+                        data: [{% for entry in weather_data %}{{ entry.rain }},{% endfor %}],
                         borderColor: 'rgb(167, 27, 177)',
                         borderWidth: 1,
                         fill: false
                     },
                     {
-                        label: 'Speed',
-                        data: [{% for entry in health_data %}{{ entry.speed }},{% endfor %}],
+                        label: 'LDR',
+                        data: [{% for entry in weather_data %}{{ entry.ldr }},{% endfor %}],
                         borderColor: 'rgb(38,127,234)',
                         borderWidth: 1,
                         fill: false
