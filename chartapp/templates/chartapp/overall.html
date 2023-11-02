@@ -1,0 +1,91 @@
+{% extends 'partials/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h4 id="health_data">Overall Table</h4>
+    <table class="table table-bordered">
+        <thead style="background-color: rgb(203, 177, 245); color: black;">
+            <tr>
+                <th>Timestamp</th>
+                <th>Temperature</th>
+                <th>Humidity</th>
+                <th>Rain</th>
+                <th>LDR</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entry in weather_data %}
+                <tr>
+                    <td>{{ entry.timestamp }}</td>
+                    <td>{{ entry.temperature_data }}</td>
+                    <td>{{ entry.humidity_data }}</td>
+                    <td>{{ entry.rain_data }}</td>
+                    <td>{{ entry.ldr_data }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table><br><br>
+    <h4 id="health_chart">3-Ph_IM Chart</h4>
+    <canvas id="healthChart" width="600" height="300"></canvas>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var ctx = document.getElementById('healthChart').getContext('2d');
+    
+            var data = {
+                labels: [{% for entry in health_data %}'{{ entry.timestamp }}',{% endfor %}],
+                datasets: [
+                    {
+                        label: 'Temperature',
+                        data: [{% for entry in health_data %}{{ entry.temperature }},{% endfor %}],
+                        borderColor: 'rgb(37,37,39)',
+                        borderWidth: 1,
+                        fill: false
+                    },
+                    {
+                        label: 'Current',
+                        data: [{% for entry in health_data %}{{ entry.current }},{% endfor %}],
+                        borderColor: 'rgb(230,54,115)',
+                        borderWidth: 1,
+                        fill: false
+                    },
+                    {
+                        label: 'Vibration',
+                        data: [{% for entry in health_data %}{{ entry.vibration }},{% endfor %}],
+                        borderColor: 'rgb(167, 27, 177)',
+                        borderWidth: 1,
+                        fill: false
+                    },
+                    {
+                        label: 'Speed',
+                        data: [{% for entry in health_data %}{{ entry.speed }},{% endfor %}],
+                        borderColor: 'rgb(38,127,234)',
+                        borderWidth: 1,
+                        fill: false
+                    }
+                ]
+            };
+    
+            var options = {
+                scales: {
+                    x: {
+                        type: 'time',
+                        time: {
+                            unit: 'day'
+                        }
+                    },
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            };
+    
+            var chart = new Chart(ctx, {
+                type: 'line',
+                data: data,
+                options: options
+            });
+        });
+    </script>
+    
+</div>
+{% endblock %}

@@ -46,7 +46,7 @@ def chart_data_view(request):
     return JsonResponse({"message": "Data saved successfully"})
 
 
-@login_required
+# @login_required
 def weather_data_view(request):
     # Get the data for each field
     temperature_data = WeatherData.objects.values_list('timestamp', 'temperature')
@@ -90,6 +90,21 @@ def tables_view(request):
         'rain_data': rain_data,
         'ldr_data': ldr_data,
     })
+
+def overall_view(request):
+    # Get the data for each field
+    temperature_data = WeatherData.objects.all()
+    humidity_data = WeatherData.objects.all()
+    rain_data = WeatherData.objects.all()
+    ldr_data = WeatherData.objects.all()
+
+    return render(request, 'chartapp/overall.html', {
+        'temperature_data': temperature_data,
+        'humidity_data': humidity_data,
+        'rain_data': rain_data,
+        'ldr_data': ldr_data,
+    })
+
 
 
 

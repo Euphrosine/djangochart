@@ -1,16 +1,13 @@
 {% extends 'partials/base.html' %}
 
 {% block content %}
-
-<form action="{% url 'generate_pdf_report' %}" method="post">
-    {% csrf_token %}
-    <button type="submit"  style="margin-left: 280px; ">Generate PDF Report</button>
-</form>
+<br>
+<h3>Tables</h3>
 <div class="row mt-5">
     <div class="col-md-6">
-        <h2>Temperature Table</h2>
+        <h4>Temperature Table</h4>
         <table class="table table-bordered table-striped">
-            <thead class="thead-dark">
+            <thead style="background-color: rgb(203, 177, 245); color: black;">
                 <tr>
                     <th scope="col">Timestamp</th>
                     <th scope="col">Temperature</th>
@@ -28,9 +25,9 @@
     </div>
 
     <div class="col-md-6">
-        <h2>Humidity Table</h2>
+        <h4>Humidity Table</h4>
         <table class="table table-bordered table-striped">
-            <thead class="thead-dark">
+            <thead style="background-color: rgb(203, 177, 245); color: black;">
                 <tr>
                     <th scope="col">Timestamp</th>
                     <th scope="col">Humidity</th>
@@ -50,9 +47,9 @@
 
 <div class="row mt-5">
     <div class="col-md-6">
-        <h2>Rain Table</h2>
+        <h4>Rain Table</h4>
         <table class="table table-bordered table-striped">
-            <thead class="thead-dark">
+            <thead style="background-color: rgb(203, 177, 245); color: black;">
                 <tr>
                     <th scope="col">Timestamp</th>
                     <th scope="col">Rain</th>
@@ -70,9 +67,9 @@
     </div>
 
     <div class="col-md-6">
-        <h2>LDR Table</h2>
+        <h4>LDR Table</h4>
         <table class="table table-bordered table-striped">
-            <thead class="thead-dark">
+            <thead style="background-color: rgb(203, 177, 245); color: black;">
                 <tr>
                     <th scope="col">Timestamp</th>
                     <th scope="col">LDR</th>

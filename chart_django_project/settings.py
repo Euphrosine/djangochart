@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'chartapp.apps.ChartappConfig',
     'rest_framework',
     'corsheaders',
-    'sensor_app',
     'crispy_forms',
     'crispy_bootstrap4',
 ]
@@ -144,6 +143,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 # }
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-LOGIN_REDIRECT_URL = 'index'
+# LOGIN_REDIRECT_URL = 'index'
 
-LOGIN_URL = 'login'
+# LOGIN_URL = 'login'
