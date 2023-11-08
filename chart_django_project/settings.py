@@ -85,12 +85,12 @@ WSGI_APPLICATION = 'chart_django_project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'railway',
-        'USER': 'postgres',
-        'PASSWORD': 'RKEJ8ttDqARmAn35DO3Z',
-        'HOST': 'containers-us-west-173.railway.app',
-        'PORT': '5769',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'cropsproject',
+        'USER': 'admin',
+        'PASSWORD': 'admin123',
+        'HOST': 'mysql-153418-0.cloudclusters.net',
+        'PORT': '19069',
 
     }
 }
