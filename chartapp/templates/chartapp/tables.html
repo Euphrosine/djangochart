@@ -85,6 +85,25 @@
             </tbody>
         </table>
     </div>
+    <div class="col-md-6">
+        <h4>Moisture Table</h4>
+        <table class="table table-bordered table-striped">
+            <thead style="background-color: rgb(203, 177, 245); color: black;">
+                <tr>
+                    <th scope="col">Timestamp</th>
+                    <th scope="col">Moisture</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entry in moisture_data %}
+                <tr>
+                    <td>{{ entry.timestamp|date:"H:i:s" }}</td>
+                    <td>{{ entry.moisture }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </div>
 
 {% endblock %}

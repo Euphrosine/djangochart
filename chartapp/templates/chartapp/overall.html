@@ -11,6 +11,7 @@
                 <th>Humidity</th>
                 <th>Rain</th>
                 <th>LDR</th>
+                <th>Moisture</th>
             </tr>
         </thead>
         <tbody>
@@ -21,6 +22,7 @@
                     <td>{{ entry.humidity }}</td>
                     <td>{{ entry.rain }}</td>
                     <td>{{ entry.ldr }}</td>
+                    <td>{{ entry.moisture }}</td>
                 </tr>
             {% endfor %}
         </tbody>
@@ -58,6 +60,13 @@
                     {
                         label: 'LDR',
                         data: [{% for entry in weather_data %}{{ entry.ldr }},{% endfor %}],
+                        borderColor: 'rgb(38,127,234)',
+                        borderWidth: 1,
+                        fill: false
+                    }
+                    {
+                        label: 'Moisture',
+                        data: [{% for entry in weather_data %}{{ entry.moisture }},{% endfor %}],
                         borderColor: 'rgb(38,127,234)',
                         borderWidth: 1,
                         fill: false
