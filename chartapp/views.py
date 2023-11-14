@@ -121,6 +121,13 @@ def generate_pdf_report(request):
     humidity_data = WeatherData.objects.all()
     rain_data = WeatherData.objects.all()
     ldr_data = WeatherData.objects.all()
+    moisture_data = WeatherData.objects.all()
+    
+        # Set the font for the title
+    p.setFont("Helvetica-Bold", 18)
+
+    # Draw the title
+    p.drawString(40, 800, "Sensor Data Report")
 
     # Add the data to the PDF
     p.setFont("Helvetica", 12)
@@ -140,9 +147,9 @@ def generate_pdf_report(request):
     for i, data in enumerate(ldr_data):
         p.drawString(70, 180 - i*20, f"Record {i+1}: {data.timestamp}, {data.ldr}")
 
-    p.drawString(50, 200, "Moisture Data:")
-    for i, data in enumerate(ldr_data):
-        p.drawString(70, 180 - i*20, f"Record {i+1}: {data.timestamp}, {data.Moisture}")
+    p.drawString(50, 50, "Moisture Data:")
+    for i, data in enumerate(moisture_data):
+        p.drawString(70, 180 - i*20, f"Record {i+1}: {data.timestamp}, {data.moisture}")
 
 
     # Save the PDF
@@ -155,4 +162,3 @@ def generate_chart_data_report_view(request):
     sensor_data = WeatherData.objects.all()
     pdf_response = generate_pdf_report(sensor_data)
     return pdf_response
-
