@@ -105,58 +105,53 @@ def overall_view(request):
     weather_data = WeatherData.objects.all()
     return render(request, 'chartapp/overall.html', {'weather_data': weather_data})
 
-
-
-
+from django.http import HttpResponse
+from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import letter
 
 def generate_pdf_report(request):
-    response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename="report.pdf"'
+    # Assuming you have Django models for each category
+    weather_data = WeatherData.objects.all()
 
     # Create a PDF document
-    p = canvas.Canvas(response)
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="System_report.pdf"'
+    p = canvas.Canvas(response, pagesize=letter)
 
-    # Get the data
-    temperature_data = WeatherData.objects.all()
-    humidity_data = WeatherData.objects.all()
-    rain_data = WeatherData.objects.all()
-    ldr_data = WeatherData.objects.all()
-    moisture_data = WeatherData.objects.all()
-    
-        # Set the font for the title
-    p.setFont("Helvetica-Bold", 18)
+    def draw_section(title, data, y_start):
+        p.setFont("Helvetica-Bold", 18)
+        p.drawCentredString(300, y_start, title)
 
-    # Draw the title
-    p.drawString(40, 800, "Sensor Data Report")
+        p.setFont("Helvetica", 12)
+        p.drawCentredString(300, y_start - 20, "-" * 50)
 
-    # Add the data to the PDF
-    p.setFont("Helvetica", 12)
-    p.drawString(50, 800, "Temperature Data:")
-    for i, data in enumerate(temperature_data):
-        p.drawString(70, 780 - i*20, f"Record {i+1}: {data.timestamp}, {data.temperature}") 
+        records_per_page = 25
+        for i, item in enumerate(data):
+            # Calculate the starting y coordinate for each record
+            record_y_start = y_start - 40 - (i % records_per_page) * 20
 
-    p.drawString(50, 600, "Humidity Data:")
-    for i, data in enumerate(humidity_data):
-        p.drawString(70, 580 - i*20, f"Record {i+1}: {data.timestamp}, {data.humidity}")
+            # Start a new page for each section or after 25 records
+            if i % records_per_page == 0 and i != 0:
+                p.showPage()
+                p.setFont("Helvetica-Bold", 18)
+                p.drawCentredString(300, 770, f"{title} (continued)")
+                p.setFont("Helvetica", 12)
+                y_start = 780  # Reset y_start for the new page
 
-    p.drawString(50, 400, "Rain Data:")
-    for i, data in enumerate(rain_data):
-        p.drawString(70, 380 - i*20, f"Record {i+1}: {data.timestamp}, {data.rain}")
+            p.drawString(70, record_y_start, f"Record {i + 1}: {item.timestamp}, {item.temperature}, {item.humidity}, {item.rain}, {item.ldr}, {item.moisture}")
 
-    p.drawString(50, 200, "LDR Data:")
-    for i, data in enumerate(ldr_data):
-        p.drawString(70, 180 - i*20, f"Record {i+1}: {data.timestamp}, {data.ldr}")
-
-    p.drawString(50, 50, "Moisture Data:")
-    for i, data in enumerate(moisture_data):
-        p.drawString(70, 180 - i*20, f"Record {i+1}: {data.timestamp}, {data.moisture}")
-
+    # Set an initial y_start value
+    draw_section("Crops Checking System Data", weather_data, 770)
 
     # Save the PDF
     p.showPage()
     p.save()
 
     return response
+
+
+
+
 
 def generate_chart_data_report_view(request):
     sensor_data = WeatherData.objects.all()

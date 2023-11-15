@@ -38,7 +38,7 @@
                 datasets: [
                     {
                         label: 'Temperature',
-                        data: [{% for entry in health_data %}{{ entry.temperature }},{% endfor %}],
+                        data: [{% for entry in weather_data %}{{ entry.temperature }},{% endfor %}],
                         borderColor: 'rgb(37,37,39)',
                         borderWidth: 1,
                         fill: false
@@ -63,7 +63,7 @@
                         borderColor: 'rgb(38,127,234)',
                         borderWidth: 1,
                         fill: false
-                    }
+                    },
                     {
                         label: 'Moisture',
                         data: [{% for entry in weather_data %}{{ entry.moisture }},{% endfor %}],
@@ -95,6 +95,7 @@
             });
         });
     </script>
+    
     
 </div>
 {% endblock %}
