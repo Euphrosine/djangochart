@@ -12,6 +12,7 @@
                 <th>Rain</th>
                 <th>LDR</th>
                 <th>Moisture</th>
+                <th>Result</th>
             </tr>
         </thead>
         <tbody>
@@ -23,10 +24,18 @@
                     <td>{{ entry.rain }}</td>
                     <td>{{ entry.ldr }}</td>
                     <td>{{ entry.moisture }}</td>
+                    <td>
+                        {% if entry.moisture < 12 %}
+                            Dry
+                        {% else %}
+                            Wet
+                        {% endif %}
+                    </td>
                 </tr>
             {% endfor %}
         </tbody>
     </table><br><br>
+    
     <h4 id="weather_chart">Overall Chart</h4>
     <canvas id="weatherChart" width="600" height="300"></canvas>
     <script>
